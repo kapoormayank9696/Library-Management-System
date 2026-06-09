@@ -1,0 +1,35 @@
+Q... Explain the @ManyToOne, @JoinColumn ?
+
+@ManyToOne and @JoinColumn are JPA/Hibernate annotations used to define relationships between database tables.
+
+@ManyToOne
+This annotation indicates that many records of one entity can be associated with one record of another entity.
+For example:
+
+Many employees belong to one department.
+Many orders belong to one customer.
+
+@JoinColumn
+@JoinColumn specifies which foreign key column in the current table stores the relationship.
+
+This tells Hibernate:
+The employee table contains a column called department_id.
+department_id is a foreign key referencing the primary key of the Department table.
+
+Q... Why use @JoinColumn(name = "...")?
+
+Without it: Hibernate generates a default foreign key column name.
+With @JoinColumn, you can control the exact column name.
+
+Q... What is JpaRepository?
+
+"JpaRepository is a Spring Data JPA interface that provides built-in CRUD operations. The first generic parameter specifies 
+the entity class to be managed, and the second generic parameter specifies the datatype of the entity's primary key."
+It provides built-in database operations (CRUD) such as:
+
+save()
+findById()
+findAll()
+deleteById()
+existsById()
+count()
