@@ -1,0 +1,43 @@
+-- Create a Database Library Management System name
+
+CREATE DATABASE library_management_system;
+
+USE library_management_system;
+
+-- Create Table Library User name
+CREATE TABLE library_user (
+user_id INT PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(50) NOT NULL UNIQUE,
+email VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Create Table Author name
+CREATE TABLE Author (
+author_id INT PRIMARY KEY AUTO_INCREMENT,
+author_name VARCHAR(50) NOT NULL
+);
+
+-- Create Table Book name
+CREATE TABLE Book (
+book_id INT PRIMARY KEY AUTO_INCREMENT,
+book_name VARCHAR(50) NOT NULL UNIQUE,
+title VARCHAR(100) NOT NULL,
+price DECIMAL(10,2) NOT NULL,
+author_id INT NOT NULL,
+quantity INT NOT NULL DEFAULT 1,
+FOREIGN KEY (author_id) REFERENCES Author(author_id)
+);
+
+-- Create Table Borrow name
+CREATE TABLE Borrow (
+borrow_id INT PRIMARY KEY AUTO_INCREMENT,
+user_id INT NOT NULL,
+book_id INT NOT NULL,
+borrow_Date DATE NOT NULL,
+return_Date DATE DEFAULT NULL,
+FOREIGN KEY(user_id) REFERENCES library_user(user_id),
+FOREIGN KEY(book_id) REFERENCES Book(book_id)
+);
+
+-- Drop Database with wholes tables
+DROP DATABASE library_management_system;
