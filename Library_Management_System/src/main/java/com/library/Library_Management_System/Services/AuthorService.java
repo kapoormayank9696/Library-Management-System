@@ -7,6 +7,6 @@ import java.util.List;
 public interface AuthorService {
     Author authorSaver(Author author);
     List<Author> getAllAuthor();
-    Author getAuthorById(Long id);
-    void deleteById(Long id);
+    Author getAuthorById(int id);
+    void deleteById(int id);
 }
