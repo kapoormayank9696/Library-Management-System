@@ -28,7 +28,7 @@ The Library Management System is a Spring Boot-based web application that provid
 * IntelliJ IDEA
 * Lombok (Optional)
 
-## Project Architecture
+# Project Architecture
 
 ```text
 src/main/java
@@ -55,7 +55,7 @@ src/main/java
 └── LibraryManagementApplication.java
 ```
 
-## Database Configuration
+# Database Configuration
 
 Update the `application.properties` file:
 
@@ -69,7 +69,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
-## API Endpoints
+# API Endpoints
 
 ### Book APIs
 
@@ -90,7 +90,7 @@ spring.jpa.properties.hibernate.format_sql=true
 | PUT    | /api/members/{id} | Update member   |
 | DELETE | /api/members/{id} | Delete member   |
 
-## Running the Application
+# Running the Application
 
 1. Clone the repository.
 
@@ -118,7 +118,7 @@ mvn spring-boot:run
 http://localhost:8080
 ```
 
-## Future Enhancements
+# Future Enhancements
 
 * JWT Authentication and Authorization
 * Role-Based Access Control (Admin/User)
