@@ -9,11 +9,9 @@ import java.util.List;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
-    private final AuthorService authorService;
     private final AuthorRepository authorRepository;
 
-    public AuthorServiceImpl(AuthorService authorService, AuthorRepository authorRepository) {
-        this.authorService = authorService;
+    public AuthorServiceImpl(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
