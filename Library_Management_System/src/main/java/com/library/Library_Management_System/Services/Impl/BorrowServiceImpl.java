@@ -31,7 +31,7 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public Borrow getById(int id) {
-        return borrowRepository.getById(id);
+        return borrowRepository.findById(id).orElseThrow(() -> new RuntimeException("Borrow not found"));
     }
 
     @Override
