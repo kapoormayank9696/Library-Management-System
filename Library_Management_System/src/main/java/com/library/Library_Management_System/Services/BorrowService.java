@@ -5,8 +5,8 @@ import com.library.Library_Management_System.Entity.Borrow;
 import java.util.List;
 
 public interface BorrowService {
-    Borrow borrowSaver(Long userId, Long bookId);
+    Borrow borrowSaver(int userId, int bookId);
     List<Borrow> getAllDetails();
-    Borrow getById(Long id);
-    void deleteById(Long id);
+    Borrow getById(int id);
+    void deleteById(int id);
 }
