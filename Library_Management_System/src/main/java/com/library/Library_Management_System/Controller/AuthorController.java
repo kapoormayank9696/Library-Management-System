@@ -26,12 +26,12 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public Author getById(@PathVariable int id) {
+    public Author getById(@PathVariable Integer id) {
         return authorService.getAuthorById(id);
     }
 
-    @DeleteMapping("/{delete/id}")
-    public void deleteById(@PathVariable int id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable Integer id) {
         authorService.deleteById(id);
     }
 }

@@ -10,10 +10,8 @@ import java.util.List;
 @RequestMapping("api/books")
 public class BookController {
     private final BookService bookService;
-    private BookController bookController;
 
-    public BookController(BookController bookController, BookService bookService) {
-        this.bookController = bookController;
+    public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -28,12 +26,12 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(int id) {
+    public Book getBookById(@PathVariable Integer id) {
         return bookService.getBookById(id);
     }
 
-    @DeleteMapping("/{delete/id}")
-    public void deleteBook(int id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteBook(@PathVariable Integer id) {
         bookService.deleteById(id);
     }
 }
