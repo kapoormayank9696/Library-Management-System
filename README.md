@@ -1,10 +1,10 @@
 # Library Management System
 
-## Overview
+# Overview
 
 The Library Management System is a Spring Boot-based web application that provides RESTful APIs for managing books, library members, and book transactions. The system helps automate library operations such as adding books, issuing books, returning books, and tracking book availability.
 
-## Features
+# Features
 
 * Add, update, delete, and view books
 * Manage library members
@@ -16,7 +16,7 @@ The Library Management System is a Spring Boot-based web application that provid
 * Database integration using JPA/Hibernate
 * Exception handling and validation
 
-## Technologies Used
+# Technologies Used
 
 * Java 17+
 * Spring Boot
