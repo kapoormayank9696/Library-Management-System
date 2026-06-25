@@ -1,0 +1,65 @@
+Library_Management_System
+│
+├── src
+│   └── main
+│       ├── java
+│       │   └── com.library
+│       │       ├── controller
+│       │       │   ├── BookController.java
+│       │       │   ├── AuthorController.java
+│       │       │   └── UserController.java
+│       │       │
+│       │       ├── service
+│       │       │   ├── BookService.java
+│       │       │   ├── AuthorService.java
+│       │       │   └── UserService.java
+│       │       │
+│       │       ├── repository
+│       │       │   ├── BookRepository.java
+│       │       │   ├── AuthorRepository.java
+│       │       │   └── UserRepository.java
+│       │       │
+│       │       ├── entity
+│       │       │   ├── Book.java
+│       │       │   ├── Author.java
+│       │       │   └── User.java
+│       │       │
+│       │       ├── servlet
+│       │       │   ├── ExportPdfServlet.java
+│       │       │   ├── DownloadReportServlet.java
+│       │       │   └── ImageServlet.java
+│       │       │
+│       │       ├── jdbc
+│       │       │   ├── ReportDao.java
+│       │       │   └── JdbcConfig.java
+│       │       │
+│       │       ├── dto
+│       │       ├── exception
+│       │       └── config
+│       │
+│       ├── resources
+│       │   ├── application.properties
+│       │   └── static
+│       │       ├── css
+│       │       ├── js
+│       │       └── images
+│       │
+│       └── webapp
+│           └── WEB-INF
+│               └── jsp
+│                   ├── login.jsp
+│                   ├── dashboard.jsp
+│                   ├── books.jsp
+│                   ├── add-book.jsp
+│                   ├── authors.jsp
+│                   ├── users.jsp
+│                   └── issue-book.jsp
+│
+├── screenshots
+│   ├── login-page.png
+│   ├── dashboard.png
+│   └── book-management.png
+│
+├── pom.xml
+├── README.md
+└── .gitignore
