@@ -1,5 +1,6 @@
 package com.library.Library_Management_System.Controller;
 
+import com.library.Library_Management_System.DTO.BookRequestDTO;
 import com.library.Library_Management_System.Entity.Book;
 import com.library.Library_Management_System.Services.BookService;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,8 @@ public class BookController {
     }
 
     @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return bookService.bookSaver(book);
+    public Book addBook(@RequestBody BookRequestDTO dto) {
+        return bookService.bookSaver(dto);
     }
 
     @GetMapping
