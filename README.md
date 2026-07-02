@@ -37,25 +37,44 @@ The Library Management System is a Spring Boot-based web application that provid
 ```text
 src/main/java
 │
-├── controller
+├── Controller
 |   |── AuthorController.java
 │   ├── BookController.java
 │   ├── BorrowController.java
-│   ├── UserController.java
+│   └── UserController.java
 │
-├── service
+├── DTO
+|   |── AuthorRequestDTO.java
+|   |── AuthorResponseDTO.java
+│   ├── BookRequestDTO.java
+│   ├── BookResponseDTO.java
+│   ├── BorrowRequestDTO.java
+│   ├── BorrowResponseDTO.java
+│   ├── UserRequestDTO.java
+│   └── UserResponseDTO.java
+│
+├── Entity
+|   |── Author.java
+│   ├── Book.java
+│   ├── Borrow.java
+│   └── User.java
+│
+├── Repository
+|   |── AuthorRepository.java
+│   ├── BookRepository.java
+│   ├── BorrowRepository.java
+│   └── UserRepository.java
+│
+├── Services
+|   └──Impl
+|      |── AuthorService.java
+│      ├── BookService.java
+│      ├── BorrowService.java
+│      └── UserService.java
 |   |── AuthorService.java
 │   ├── BookService.java
 │   ├── BorrowService.java
-│   ├── UserServicer.java
-│
-├── repository
-│   ├── BookRepository.java
-│   ├── MemberRepository.java
-│
-├── entity
-│   ├── Book.java
-│   ├── Member.java
+│   └── UserService.java
 │
 ├── exception
 │   ├── ResourceNotFoundException.java
