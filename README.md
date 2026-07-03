@@ -89,7 +89,7 @@ Update the `application.properties` file:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/library_db
 spring.datasource.username=root
-spring.datasource.password=your_password
+spring.datasource.password=9689
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
