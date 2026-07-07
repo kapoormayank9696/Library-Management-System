@@ -3,6 +3,8 @@
 A Spring Boot-based REST API for managing a Library System.
 It handles Books, Authors, Users, and basic library operations using MySQL as the database.
 
+---
+
 # Overview
 
 The Library Management System is a Spring Boot-based web application that provides RESTful APIs for managing books, library members, and book transactions. The system helps automate library operations such as adding books, issuing books, returning books, and tracking book availability.
