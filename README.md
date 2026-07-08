@@ -86,6 +86,9 @@ src/main/java
 │   ├── ResourceNotFoundException.java
 │
 └── LibraryManagementApplication.java
+
+---
+
 ```
 
 # Database Configuration
