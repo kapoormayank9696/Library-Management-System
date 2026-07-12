@@ -3,9 +3,13 @@
 A Spring Boot-based REST API for managing a Library System.
 It handles Books, Authors, Users, and basic library operations using MySQL as the database.
 
+---
+
 # Overview
 
 The Library Management System is a Spring Boot-based web application that provides RESTful APIs for managing books, library members, and book transactions. The system helps automate library operations such as adding books, issuing books, returning books, and tracking book availability.
+
+---
 
 # Features
 
@@ -18,6 +22,8 @@ The Library Management System is a Spring Boot-based web application that provid
 * RESTful API architecture
 * Database integration using JPA/Hibernate
 * Exception handling and validation
+
+---
 
 # Technologies Used
 
@@ -37,26 +43,52 @@ The Library Management System is a Spring Boot-based web application that provid
 ```text
 src/main/java
 │
-├── controller
+├── Controller
+|   |── AuthorController.java
 │   ├── BookController.java
-│   ├── MemberController.java
+│   ├── BorrowController.java
+│   └── UserController.java
 │
-├── service
-│   ├── BookService.java
-│   ├── MemberService.java
+├── DTO
+|   |── AuthorRequestDTO.java
+|   |── AuthorResponseDTO.java
+│   ├── BookRequestDTO.java
+│   ├── BookResponseDTO.java
+│   ├── BorrowRequestDTO.java
+│   ├── BorrowResponseDTO.java
+│   ├── UserRequestDTO.java
+│   └── UserResponseDTO.java
 │
-├── repository
-│   ├── BookRepository.java
-│   ├── MemberRepository.java
-│
-├── entity
+├── Entity
+|   |── Author.java
 │   ├── Book.java
-│   ├── Member.java
+│   ├── Borrow.java
+│   └── User.java
+│
+├── Repository
+|   |── AuthorRepository.java
+│   ├── BookRepository.java
+│   ├── BorrowRepository.java
+│   └── UserRepository.java
+│
+├── Services
+|   └──Impl
+|      |── AuthorService.java
+│      ├── BookService.java
+│      ├── BorrowService.java
+│      └── UserService.java
+|   |── AuthorService.java
+│   ├── BookService.java
+│   ├── BorrowService.java
+│   └── UserService.java
 │
 ├── exception
 │   ├── ResourceNotFoundException.java
 │
 └── LibraryManagementApplication.java
+
+---
+
 ```
 
 # Database Configuration
@@ -66,7 +98,7 @@ Update the `application.properties` file:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/library_db
 spring.datasource.username=root
-spring.datasource.password=your_password
+spring.datasource.password=9689
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
