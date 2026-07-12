@@ -4,6 +4,10 @@ public class UserRequestDTO {
     private String userName;
     private String email;
 
+    // Default Constructor
+    public UserRequestDTO() {}
+
+    // Parameterized Constructor
     public UserRequestDTO(String userName, String email) {
         this.userName = userName;
         this.email = email;

@@ -9,6 +9,10 @@ public class BookRequestDTO {
     private Integer authorId;
     private int quantity;
 
+    // Default Constructor
+    public BookRequestDTO() {}
+
+    // Parameterized Constructor
     public BookRequestDTO(String bookName, String title, BigDecimal price, Integer authorId, int quantity) {
         this.bookName = bookName;
         this.title = title;

@@ -1,0 +1,29 @@
+Client
+   │
+   ▼
+AuthorRequestDTO
+   │
+   ▼
+Controller
+   │
+   ▼
+Service
+   │
+   ▼
+Entity
+   │
+Repository
+   │
+Database
+   │
+Repository
+   │
+Entity
+   │
+Service
+   │
+AuthorResponseDTO
+   │
+Controller
+   │
+Client
