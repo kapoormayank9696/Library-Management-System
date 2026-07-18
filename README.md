@@ -38,6 +38,8 @@ The Library Management System is a Spring Boot-based web application that provid
 * IntelliJ IDEA
 * Lombok (Optional)
 
+---
+
 # Project Architecture
 
 ```text
