@@ -171,3 +171,23 @@ http://localhost:8080
 
 Developed using Spring Boot and REST API architecture for efficient library management.
 
+# Mayank Kapoor
+
+📧 Email: kapoormayank645@gmail.com
+
+🌐 GitHub: https://github.com/kapoormayank9696
+
+---
+
+# ⭐ Support
+
+If you find this project helpful:
+
+⭐ Star the repository
+
+🍴 Fork it
+
+🧠 Use it for learning and practice
+Happy Coding! 🚀
+
+---
