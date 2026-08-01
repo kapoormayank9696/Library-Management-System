@@ -10,13 +10,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int userId;
+
     @Column(name = "username" , nullable = false, unique = true)
     private String username;
+
     @Column(name = "email" , nullable = false, unique = true)
     private String email;
 }
