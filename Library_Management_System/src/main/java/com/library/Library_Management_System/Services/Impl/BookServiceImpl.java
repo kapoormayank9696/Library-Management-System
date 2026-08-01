@@ -23,6 +23,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book bookSaver(BookRequestDTO dto) {
+
+        if (dto.getAuthorId() == null) {
+            throw new RuntimeException("Author ID is required");
+        }
+
         Author author = authorRepository.findById(dto.getAuthorId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
@@ -32,6 +37,7 @@ public class BookServiceImpl implements BookService {
         book.setPrice(dto.getPrice());
         book.setQuantity(dto.getQuantity());
         book.setAuthor(author);
+
         return bookRepository.save(book);
     }
 
