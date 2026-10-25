@@ -30,6 +30,11 @@ public class AuthorController {
         return authorService.getAuthorById(id);
     }
 
+    @PutMapping("/update/{id}")
+    public Author updateById(@PathVariable Integer id, @RequestBody Author author) {
+        return authorService.updateAuthor(id, author);
+    }
+
     @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Integer id) {
         authorService.deleteById(id);

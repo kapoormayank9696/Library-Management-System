@@ -9,5 +9,6 @@ public interface BookService {
     Book bookSaver(BookRequestDTO dto);
     List<Book> getAllBooks();
     Book getBookById(int id);
+    Book updateBook(int id, BookRequestDTO dto);
     void deleteById(int id);
 }

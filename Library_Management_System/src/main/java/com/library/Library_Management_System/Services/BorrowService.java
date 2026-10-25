@@ -9,5 +9,6 @@ public interface BorrowService {
     Borrow returnBook(int borrowId);
     List<Borrow> getAllDetails();
     Borrow getById(int id);
+    Borrow updateBorrow(int id, Borrow borrow);
     void deleteById(int id);
 }

@@ -1,9 +1,7 @@
 package com.library.Library_Management_System.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "Author")
@@ -12,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")

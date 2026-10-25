@@ -37,6 +37,11 @@ public class BorrowController {
         return borrowService.getById(id);
     }
 
+    @PutMapping("/update/{id}")
+    public Borrow updateBorrowById(@PathVariable Integer id, @RequestBody Borrow borrow) {
+        return borrowService.updateBorrow(id,borrow);
+    }
+
     @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Integer id) {
         borrowService.deleteById(id);

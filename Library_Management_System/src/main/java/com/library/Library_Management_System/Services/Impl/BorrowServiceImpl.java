@@ -1,3 +1,4 @@
+
 package com.library.Library_Management_System.Services.Impl;
 
 import com.library.Library_Management_System.Entity.Book;
@@ -7,7 +8,9 @@ import com.library.Library_Management_System.Repository.BookRepository;
 import com.library.Library_Management_System.Repository.BorrowRepository;
 import com.library.Library_Management_System.Repository.UserRepository;
 import com.library.Library_Management_System.Services.BorrowService;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,36 +22,35 @@ public class BorrowServiceImpl implements BorrowService {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
 
-    public BorrowServiceImpl(BorrowRepository borrowRepository,
-                             BookRepository bookRepository,
-                             UserRepository userRepository) {
+    public BorrowServiceImpl(
+            BorrowRepository borrowRepository,
+            BookRepository bookRepository,
+            UserRepository userRepository) {
         this.borrowRepository = borrowRepository;
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
     }
 
-    // ---------------- BORROW BOOK ----------------
+    // ---------------- ADD BORROW BOOK ---------------
     @Override
+    @Transactional
     public Borrow borrowSaver(int userId, int bookId) {
 
-        // 1. Validate User
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + userId));
 
-        // 2. Validate Book
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Book not found with id: " + bookId));
+                .orElseThrow(() ->
+                        new RuntimeException("Book not found with id: " + bookId));
 
-        // 3. Check availability
         if (book.getQuantity() <= 0) {
             throw new RuntimeException("Book is not available currently");
         }
 
-        // 4. Reduce stock
         book.setQuantity(book.getQuantity() - 1);
         bookRepository.save(book);
 
-        // 5. Create borrow record
         Borrow borrow = new Borrow();
         borrow.setUser(user);
         borrow.setBook(book);
@@ -58,28 +60,31 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowRepository.save(borrow);
     }
 
-    // ---------------- RETURN BOOK ----------------
+    // ---------------- RETURN BOOK -------------------
     @Override
+    @Transactional
     public Borrow returnBook(int borrowId) {
 
-        // 1. Find borrow record
         Borrow borrow = borrowRepository.findById(borrowId)
-                .orElseThrow(() -> new RuntimeException("Borrow record not found with id: " + borrowId));
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Borrow record not found with id: " + borrowId));
 
-        // 2. Get book
+        // Prevent returning the same book more than once
+        if (borrow.getReturnDate() != null) {
+            throw new RuntimeException("Book has already been returned");
+        }
+
         Book book = borrow.getBook();
-
-        // 3. Increase stock
         book.setQuantity(book.getQuantity() + 1);
         bookRepository.save(book);
 
-        // 4. Set return date
         borrow.setReturnDate(LocalDate.now());
 
         return borrowRepository.save(borrow);
     }
 
-    // ---------------- GET ALL BORROWS ----------------
+    // ---------------- GET ALL BORROWS ---------------
     @Override
     public List<Borrow> getAllDetails() {
         return borrowRepository.findAll();
@@ -89,12 +94,43 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     public Borrow getById(int id) {
         return borrowRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Borrow not found with id: " + id));
+                .orElseThrow(() ->
+                        new RuntimeException("Borrow not found with id: " + id));
     }
 
-    // ---------------- DELETE ----------------
+    // ---------------- UPDATE BORROW -----------------
     @Override
+    @Transactional
+    public Borrow updateBorrow(int id, Borrow updatedBorrow) {
+
+        Borrow existingBorrow = borrowRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Borrow not found with id: " + id));
+
+        // Do not allow changing an existing borrow record's
+        // user, book, or dates directly.
+        // Use returnBook() to return a book safely.
+        throw new UnsupportedOperationException(
+                "Borrow records cannot be edited directly. Use the return book operation instead."
+        );
+    }
+
+    // ---------------- DELETE BORROW BY ID------------
+    @Override
+    @Transactional
     public void deleteById(int id) {
-        borrowRepository.deleteById(id);
+
+        Borrow borrow = borrowRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Borrow not found with id: " + id));
+
+        // If the book is still borrowed, restore its stock
+        if (borrow.getReturnDate() == null) {
+            Book book = borrow.getBook();
+            book.setQuantity(book.getQuantity() + 1);
+            bookRepository.save(book);
+        }
+
+        borrowRepository.delete(borrow);
     }
 }

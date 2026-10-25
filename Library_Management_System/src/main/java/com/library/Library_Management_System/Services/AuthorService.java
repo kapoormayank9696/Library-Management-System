@@ -8,5 +8,6 @@ public interface AuthorService {
     Author authorSaver(Author author);
     List<Author> getAllAuthor();
     Author getAuthorById(int id);
+    Author updateAuthor(int id, Author author);
     void deleteById(int id);
 }

@@ -1,57 +1,48 @@
 package com.library.Library_Management_System.DTO;
 
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class BookRequestDTO {
+    @NotBlank(message = "Book name is required")
+    @Size (
+            min = 5,
+            max = 255,
+            message = "Book name must be between 5 to 255 characters"
+    )
     private String bookName;
+
+    @NotBlank(message = "Title is required")
+    @Size (
+            min = 2,
+            max = 255,
+            message = "Title must be between 2 to 255 characters"
+    )
     private String title;
+
+    @NotNull(message = "Price must be required")
+    @DecimalMin(
+            value = "0.0",
+            inclusive = false,
+            message = "Price must be greater than zero"
+    )
     private BigDecimal price;
+
+    @NotNull(message = "Author Id must be required")
     private Integer authorId;
+
+    @PositiveOrZero(message = "Quantity cannot be negative")
     private int quantity;
-
-    // Default Constructor
-    public BookRequestDTO() {}
-
-    // Parameterized Constructor
-    public BookRequestDTO(String bookName, String title, BigDecimal price, Integer authorId, int quantity) {
-        this.bookName = bookName;
-        this.title = title;
-        this.price = price;
-        this.authorId = authorId;
-        this.quantity = quantity;
-    }
-
-    // Setter
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
-    }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    // Getter
-    public String getBookName() {
-        return bookName;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public BigDecimal getPrice() {
-        return price;
-    }
-    public Integer getAuthorId() {
-        return authorId;
-    }
-    public int getQuantity() {
-        return quantity;
-    }
 }
+
+
