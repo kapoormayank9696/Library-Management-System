@@ -2,7 +2,6 @@
 
 A Spring Boot-based REST API for managing a Library System.
 It handles Books, Authors, Users, and basic library operations using MySQL as the database.
-
 ---
 
 # Overview
