@@ -2,6 +2,8 @@ package com.library.Library_Management_System.Controller;
 
 import com.library.Library_Management_System.Entity.Author;
 import com.library.Library_Management_System.Services.AuthorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,11 @@ public class AuthorController {
     }
 
     @PostMapping
-    public Author addAuthor(@RequestBody Author author) {
-        return authorService.authorSaver(author);
+    public ResponseEntity<List<Author>> saveAll(@RequestBody List<Author> authors) {
+        List<Author> savedAuthors = authorService.saveAll(authors);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedAuthors);
     }
 
     @GetMapping

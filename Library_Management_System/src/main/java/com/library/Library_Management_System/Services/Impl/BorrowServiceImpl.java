@@ -1,4 +1,3 @@
-
 package com.library.Library_Management_System.Services.Impl;
 
 import com.library.Library_Management_System.Entity.Book;
@@ -34,8 +33,7 @@ public class BorrowServiceImpl implements BorrowService {
     // ---------------- ADD BORROW BOOK ---------------
     @Override
     @Transactional
-    public Borrow borrowSaver(int userId, int bookId) {
-
+    public List<Borrow> saveAll(int userId, int bookId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() ->
                         new RuntimeException("User not found with id: " + userId));
@@ -57,7 +55,9 @@ public class BorrowServiceImpl implements BorrowService {
         borrow.setBorrowDate(LocalDate.now());
         borrow.setReturnDate(null);
 
-        return borrowRepository.save(borrow);
+        Borrow savedBorrow = borrowRepository.save(borrow);
+
+        return List.of(savedBorrow);
     }
 
     // ---------------- RETURN BOOK -------------------

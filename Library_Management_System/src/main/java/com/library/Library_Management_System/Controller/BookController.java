@@ -18,8 +18,8 @@ public class BookController {
     }
 
     @PostMapping
-    public Book addBook(@RequestBody BookRequestDTO dto) {
-        return bookService.bookSaver(dto);
+    public List<Book> saveAll(@RequestBody List<BookRequestDTO> dto) {
+        return bookService.saveAll(dto);
     }
 
     @GetMapping

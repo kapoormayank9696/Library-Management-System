@@ -18,8 +18,8 @@ public class BorrowController {
     }
 
     @PostMapping
-    public Borrow addBorrow(@RequestBody BorrowRequestDTO request) {
-        return borrowService.borrowSaver(request.getUserId(),request.getBookId());
+    public List<Borrow> addBorrow(@RequestBody BorrowRequestDTO request) {
+        return borrowService.saveAll(request.getUserId(),request.getBookId());
     }
 
     @GetMapping("/return/{id}")

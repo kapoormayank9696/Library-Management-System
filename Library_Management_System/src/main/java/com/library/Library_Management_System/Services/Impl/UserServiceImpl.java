@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
     // ---------------- ADD USER ----------------------
     @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public List<User> saveAll(List<User> users) {
+        return userRepository.saveAll(users);
     }
 
     // ---------------- GET ALL USERS -----------------

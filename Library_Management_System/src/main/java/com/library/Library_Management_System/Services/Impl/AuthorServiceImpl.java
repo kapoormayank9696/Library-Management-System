@@ -20,8 +20,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
     // ---------------- ADD USERS ---------------------
     @Override
-    public Author authorSaver(Author author) {
-        return authorRepository.save(author);
+    public List<Author> saveAll(List<Author> authors) {
+        return authorRepository.saveAll(authors);
     }
 
     // ---------------- GET ALL USERS ----------------

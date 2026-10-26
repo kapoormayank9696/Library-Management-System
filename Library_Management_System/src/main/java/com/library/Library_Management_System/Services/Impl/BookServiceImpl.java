@@ -10,6 +10,7 @@ import com.library.Library_Management_System.Services.BookService;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,25 +30,29 @@ public class BookServiceImpl implements BookService {
 
     // ---------------- ADD BOOK ----------------------
     @Override
-    public Book bookSaver(BookRequestDTO dto) {
+    public List<Book> saveAll(List<BookRequestDTO> dts) {
+        List<Book> books = new ArrayList<>();
 
-        if (dto.getAuthorId() == null) {
-            throw new RuntimeException("Author ID is required");
+        for(BookRequestDTO dto: dts) {
+
+            if (dto.getAuthorId() == null) {
+                throw new RuntimeException("Author ID is required");
+            }
+
+            Author author = authorRepository.findById(dto.getAuthorId())
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    "Author not found with ID: " + dto.getAuthorId()));
+            Book book = new Book();
+            book.setBookName(dto.getBookName());
+            book.setTitle(dto.getTitle());
+            book.setPrice(dto.getPrice());
+            book.setQuantity(dto.getQuantity());
+            book.setAuthor(author);
+
+            books.add(book);
         }
-
-        Author author = authorRepository.findById(dto.getAuthorId())
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Author not found with ID: " + dto.getAuthorId()));
-
-        Book book = new Book();
-        book.setBookName(dto.getBookName());
-        book.setTitle(dto.getTitle());
-        book.setPrice(dto.getPrice());
-        book.setQuantity(dto.getQuantity());
-        book.setAuthor(author);
-
-        return bookRepository.save(book);
+       return bookRepository.saveAll(books);
     }
 
     // ---------------- GET ALL BOOKS -----------------

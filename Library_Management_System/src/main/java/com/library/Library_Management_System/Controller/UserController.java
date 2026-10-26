@@ -2,6 +2,8 @@ package com.library.Library_Management_System.Controller;
 
 import com.library.Library_Management_System.Entity.User;
 import com.library.Library_Management_System.Services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,10 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<List<User>> saveAll(@RequestBody List<User> users) {
+        List<User> savedUsers = userService.saveAll(users);
+        return ResponseEntity.status(HttpStatus.CREATED)
+               .body(savedUsers);
     }
 
     @GetMapping
