@@ -1,11 +1,12 @@
 package com.library.Library_Management_System.Services;
 
+import com.library.Library_Management_System.DTO.BorrowRequestDTO;
 import com.library.Library_Management_System.Entity.Borrow;
 
 import java.util.List;
 
 public interface BorrowService {
-    List<Borrow> saveAll(int userId, int bookId);
+    List<Borrow> saveAll(List<BorrowRequestDTO> dto);
     Borrow returnBook(int borrowId);
     List<Borrow> getAllDetails();
     Borrow getById(int id);

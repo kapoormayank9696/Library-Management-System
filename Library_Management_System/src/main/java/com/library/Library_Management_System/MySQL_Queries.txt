@@ -1,43 +1,110 @@
--- Create a Database Library Management System name
+-- =========================================
+-- LIBRARY MANAGEMENT SYSTEM
+-- Database Schema
+-- =========================================
 
-CREATE DATABASE library_management_system;
+CREATE DATABASE IF NOT EXISTS library_management_system;
 
 USE library_management_system;
 
--- Create Table Library User name
+
+-- =========================================
+-- 1. LIBRARY USER TABLE
+-- =========================================
+
 CREATE TABLE library_user (
-user_id INT PRIMARY KEY AUTO_INCREMENT,
-username VARCHAR(50) NOT NULL UNIQUE,
-email VARCHAR(50) NOT NULL UNIQUE
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Create Table Author name
+
+-- =========================================
+-- 2. AUTHOR TABLE
+-- =========================================
+
 CREATE TABLE Author (
-author_id INT PRIMARY KEY AUTO_INCREMENT,
-author_name VARCHAR(50) NOT NULL
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(100) NOT NULL
 );
 
--- Create Table Book name
+
+-- =========================================
+-- 3. BOOK TABLE
+-- =========================================
+
 CREATE TABLE Book (
-book_id INT PRIMARY KEY AUTO_INCREMENT,
-book_name VARCHAR(50) NOT NULL UNIQUE,
-title VARCHAR(100) NOT NULL,
-price DECIMAL(10,2) NOT NULL,
-author_id INT NOT NULL,
-quantity INT NOT NULL DEFAULT 1,
-FOREIGN KEY (author_id) REFERENCES Author(author_id)
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_name VARCHAR(100) NOT NULL UNIQUE,
+    title VARCHAR(150) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    author_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+
+    CONSTRAINT chk_book_price
+        CHECK (price >= 0),
+
+    CONSTRAINT chk_book_quantity
+        CHECK (quantity >= 0),
+
+    CONSTRAINT fk_book_author
+        FOREIGN KEY (author_id)
+        REFERENCES Author(author_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    INDEX idx_book_author (author_id)
 );
 
--- Create Table Borrow name
+
+-- =========================================
+-- 4. BORROW TABLE
+-- =========================================
+
 CREATE TABLE Borrow (
-borrow_id INT PRIMARY KEY AUTO_INCREMENT,
-user_id INT NOT NULL,
-book_id INT NOT NULL,
-borrow_Date DATE NOT NULL,
-return_Date DATE DEFAULT NULL,
-FOREIGN KEY(user_id) REFERENCES library_user(user_id),
-FOREIGN KEY(book_id) REFERENCES Book(book_id)
+    borrow_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL,
+    borrow_Date DATE NOT NULL,
+    return_Date DATE DEFAULT NULL,
+
+    CONSTRAINT chk_borrow_dates
+        CHECK (
+            return_Date IS NULL
+            OR return_Date >= borrow_Date
+        ),
+
+    CONSTRAINT fk_borrow_user
+        FOREIGN KEY (user_id)
+        REFERENCES library_user(user_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_borrow_book
+        FOREIGN KEY (book_id)
+        REFERENCES Book(book_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    INDEX idx_borrow_user (user_id),
+    INDEX idx_borrow_book (book_id)
 );
 
--- Drop Database with wholes tables
+
+-- =========================================
+-- 5. VERIFY TABLES
+-- =========================================
+
+SHOW TABLES;
+
+DESCRIBE library_user;
+DESCRIBE Author;
+DESCRIBE Book;
+DESCRIBE Borrow;
+
+
+-- =========================================
+-- 6. DROP DATABASE
+-- =========================================
+
 DROP DATABASE library_management_system;
