@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Form | LibraryHub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <a th:href="@{/dashboard}" class="brand">▣ LibraryHub</a>
+        <p class="nav-label">WORKSPACE</p>
+        <a class="nav-link" th:href="@{/dashboard}">▦ Dashboard</a>
+        <a class="nav-link" th:href="@{/books}">▤ All Books</a>
+        <a class="nav-link active" th:href="@{/books/new}">＋ Add Book</a>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1 th:text="${pageTitle}">Add New Book</h1>
+                <p class="muted">Enter the book details below.</p>
+            </div>
+            <a th:href="@{/books}" class="btn btn-outline-secondary">
+                Back to Books
+            </a>
+        </header>
+
+        <section class="content-card" style="max-width: 760px;">
+            <form th:action="@{/books/save}"
+                  th:object="${book}" method="post">
+
+                <input type="hidden" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label class="form-label">Book Title</label>
+                    <input class="form-control" th:field="*{title}"
+                           required maxlength="200"
+                           placeholder="Enter book title">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Author</label>
+                    <input class="form-control" th:field="*{author}"
+                           required maxlength="150"
+                           placeholder="Enter author name">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <input class="form-control" th:field="*{category}"
+                           required maxlength="100"
+                           placeholder="e.g. Computer Science">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Available Copies</label>
+                    <input class="form-control" type="number"
+                           min="0" required
+                           th:field="*{availableCopies}">
+                </div>
+
+                <button class="btn btn-primary" type="submit">
+                    Save Book
+                </button>
+                <a th:href="@{/books}"
+                   class="btn btn-light ms-2">Cancel</a>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
