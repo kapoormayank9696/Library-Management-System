@@ -19,18 +19,16 @@ body {
 }
 
 .app-layout {
-    min-height: 100vh;
     display: flex;
+    min-height: 100vh;
+    width: 100%;
 }
 
 .sidebar {
-    width: 25px;
-    background: var(--sidebar);
-    color: white;
-    padding: 28px 18px;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+    width: 260px;
+    min-width: 260px;
+    flex: 0 0 260px;
+    min-height: 100vh;
 }
 
 .brand {
@@ -74,7 +72,7 @@ body {
 .main-content {
     min-width: 0;
     flex: 1;
-    padding: 34px;
+    padding: 40px 32px;
 }
 
 .topbar {
