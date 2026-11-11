@@ -6,7 +6,7 @@ import com.library.Library_Management_System.Entity.Book;
 import java.util.List;
 
 public interface BookService {
-    List<Book> saveAll(List<BookRequestDTO> dto);
+    Book saveBook(BookRequestDTO dto);
     List<Book> getAllBooks();
     Book getBookById(int id);
     Book updateBook(int id, BookRequestDTO dto);

@@ -19,10 +19,11 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     // ---------------- ADD USER ----------------------
     @Override
-    public List<User> saveAll(List<User> users) {
-        return userRepository.saveAll(users);
+    public User saveUser(User users) {
+        return userRepository.save(users);
     }
 
     // ---------------- GET ALL USERS -----------------

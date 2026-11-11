@@ -17,12 +17,12 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @PostMapping
-    public ResponseEntity<List<Author>> saveAll(@RequestBody List<Author> authors) {
-        List<Author> savedAuthors = authorService.saveAll(authors);
+    @PostMapping()
+    public ResponseEntity<Author> saveAuthor(@RequestBody Author author) {
+        Author savedAuthor = authorService.saveAuthor(author);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedAuthors);
+                .body(savedAuthor);
     }
 
     @GetMapping
@@ -40,7 +40,7 @@ public class AuthorController {
         return authorService.updateAuthor(id, author);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping()
     public void deleteById(@PathVariable Integer id) {
         authorService.deleteById(id);
     }

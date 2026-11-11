@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,12 +35,7 @@ public class BorrowServiceImpl implements BorrowService {
     // ---------------- ADD MULTIPLE BORROW RECORDS ----------------
     @Override
     @Transactional
-    public List<Borrow> saveAll(List<BorrowRequestDTO> requests) {
-
-        List<Borrow> borrows = new ArrayList<>();
-
-        for (BorrowRequestDTO request : requests) {
-
+    public Borrow saveBorrow(BorrowRequestDTO request) {
             User user = userRepository.findById(request.getUserId())
                     .orElseThrow(() ->
                             new RuntimeException(
@@ -67,10 +61,7 @@ public class BorrowServiceImpl implements BorrowService {
             borrow.setBorrowDate(LocalDate.now());
             borrow.setReturnDate(null);
 
-            borrows.add(borrow);
-        }
-
-        return borrowRepository.saveAll(borrows);
+        return borrowRepository.save(borrow);
     }
 
     // ---------------- RETURN BOOK ----------------

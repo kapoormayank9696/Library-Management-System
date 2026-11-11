@@ -18,8 +18,8 @@ public class BookController {
     }
 
     @PostMapping
-    public List<Book> saveAll(@RequestBody List<BookRequestDTO> dto) {
-        return bookService.saveAll(dto);
+    public Book saveAll(@RequestBody BookRequestDTO dto) {
+        return bookService.saveBook(dto);
     }
 
     @GetMapping
@@ -37,7 +37,7 @@ public class BookController {
         return bookService.updateBook(id,book);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping()
     public void deleteBook(@PathVariable Integer id) {
         bookService.deleteById(id);
     }

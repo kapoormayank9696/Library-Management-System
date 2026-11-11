@@ -10,7 +10,6 @@ import com.library.Library_Management_System.Services.BookService;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,11 +29,7 @@ public class BookServiceImpl implements BookService {
 
     // ---------------- ADD BOOK ----------------------
     @Override
-    public List<Book> saveAll(List<BookRequestDTO> dts) {
-        List<Book> books = new ArrayList<>();
-
-        for(BookRequestDTO dto: dts) {
-
+    public Book saveBook(BookRequestDTO dto) {
             if (dto.getAuthorId() == null) {
                 throw new RuntimeException("Author ID is required");
             }
@@ -50,9 +45,7 @@ public class BookServiceImpl implements BookService {
             book.setQuantity(dto.getQuantity());
             book.setAuthor(author);
 
-            books.add(book);
-        }
-       return bookRepository.saveAll(books);
+       return bookRepository.save(book);
     }
 
     // ---------------- GET ALL BOOKS -----------------

@@ -18,10 +18,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<List<User>> saveAll(@RequestBody List<User> users) {
-        List<User> savedUsers = userService.saveAll(users);
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+
+        User savedUser = userService.saveUser(user);
+
         return ResponseEntity.status(HttpStatus.CREATED)
-               .body(savedUsers);
+                .body(savedUser);
     }
 
     @GetMapping
@@ -39,7 +41,7 @@ public class UserController {
         return userService.updateUser(id,user);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping()
     public void deleteById(@PathVariable Integer id) {
         userService.deleteUser(id);
     }

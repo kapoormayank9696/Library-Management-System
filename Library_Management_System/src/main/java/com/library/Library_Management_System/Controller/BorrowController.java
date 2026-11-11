@@ -4,7 +4,6 @@ package com.library.Library_Management_System.Controller;
 import com.library.Library_Management_System.DTO.BorrowRequestDTO;
 import com.library.Library_Management_System.Entity.Borrow;
 import com.library.Library_Management_System.Services.BorrowService;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +20,9 @@ public class BorrowController {
 
     // Add multiple borrow records
     @PostMapping
-    public List<Borrow> saveAll(
-            @RequestBody List<@Valid BorrowRequestDTO> request) {
-        return borrowService.saveAll(request);
+    public Borrow saveBorrow(
+            @RequestBody BorrowRequestDTO request) {
+        return borrowService.saveBorrow(request);
     }
 
     // Return a book
@@ -53,7 +52,7 @@ public class BorrowController {
     }
 
     // Delete borrow record
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping()
     public void deleteById(@PathVariable int id) {
         borrowService.deleteById(id);
     }
