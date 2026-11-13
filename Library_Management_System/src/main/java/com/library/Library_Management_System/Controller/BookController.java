@@ -3,7 +3,7 @@ package com.library.Library_Management_System.Controller;
 import com.library.Library_Management_System.DTO.BookRequestDTO;
 import com.library.Library_Management_System.Entity.Book;
 import com.library.Library_Management_System.Services.BookService;
-import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,12 +33,13 @@ public class BookController {
     }
 
     @PutMapping("/update/{id}")
-    public Book updateBookById(@PathVariable Integer id,@Valid @RequestBody BookRequestDTO book) {
+    public Book updateBook(@PathVariable Integer id,@RequestBody BookRequestDTO book) {
         return bookService.updateBook(id,book);
     }
 
-    @DeleteMapping()
-    public void deleteBook(@PathVariable Integer id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Integer id) {
         bookService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

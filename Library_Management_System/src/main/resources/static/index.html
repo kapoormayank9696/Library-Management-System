@@ -4,110 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="layout">
 
-    <aside class="sidebar">
-        <div class="brand">📚 <span>Library<br>Management</span></div>
-        <nav>
-            <button data-tab="books"   class="tab active">📖 Books</button>
-            <button data-tab="authors" class="tab">✍️ Authors</button>
-            <button data-tab="users"   class="tab">👤 Users</button>
-            <button data-tab="borrows" class="tab">🔁 Borrow / Return</button>
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <i class="bi bi-book-half"></i>
+            <div><strong>LibraryMS</strong><small>Management System</small></div>
+        </div>
+        <nav id="nav">
+            <button class="nav-item active" data-view="dashboard"><i class="bi bi-grid-1x2"></i>Dashboard</button>
+            <button class="nav-item" data-view="books"><i class="bi bi-book"></i>Books</button>
+            <button class="nav-item" data-view="authors"><i class="bi bi-person-lines-fill"></i>Authors</button>
+            <button class="nav-item" data-view="users"><i class="bi bi-people"></i>Users</button>
+            <button class="nav-item" data-view="borrows"><i class="bi bi-arrow-left-right"></i>Borrow / Return</button>
+            <button class="nav-item" data-view="borrows"><i class="bi bi-arrow-left-right"></i>Returned Books</button>
+
         </nav>
+        <div class="sidebar-footer">Library Management System<br>Spring Boot + MySQL</div>
     </aside>
 
-    <div class="content">
-        <h2 id="pageTitle" class="page-title">Books</h2>
+    <!-- ===== MAIN ===== -->
+    <div class="main">
+        <header class="topbar">
+            <button id="menuBtn" class="icon-btn menu-btn" aria-label="Menu"><i class="bi bi-list"></i></button>
+            <h1 id="pageTitle">Dashboard</h1>
+            <button id="addBtn" class="btn primary hidden"><i class="bi bi-plus-lg"></i><span id="addLabel">Add</span></button>
+        </header>
 
-        <main>
-            <p id="msg" class="msg"></p>
+        <main class="content">
+
+            <!-- DASHBOARD -->
+            <section id="view-dashboard" class="view">
+                <div class="stats">
+                    <div class="stat"><div class="stat-icon blue"><i class="bi bi-book"></i></div><div><span id="statBooks">0</span><p>Book Titles</p></div></div>
+                    <div class="stat"><div class="stat-icon purple"><i class="bi bi-person-lines-fill"></i></div><div><span id="statAuthors">0</span><p>Authors</p></div></div>
+                    <div class="stat"><div class="stat-icon green"><i class="bi bi-people"></i></div><div><span id="statUsers">0</span><p>Members</p></div></div>
+                    <div class="stat"><div class="stat-icon orange"><i class="bi bi-journal-arrow-up"></i></div><div><span id="statActive">0</span><p>Books Borrowed</p></div></div>
+                </div>
+                <div class="two-col">
+                    <div class="card">
+                        <div class="card-head"><h3>Recent Borrowings</h3></div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>Member</th><th>Book</th><th>Borrowed</th><th>Status</th></tr></thead>
+                                <tbody id="recentRows"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><h3>Low Stock</h3></div>
+                        <ul id="lowStock" class="list"></ul>
+                    </div>
+                </div>
+            </section>
 
             <!-- BOOKS -->
-            <section id="books" class="panel">
+            <section id="view-books" class="view hidden">
                 <div class="card">
-                    <h3>Add Book</h3>
-                    <form id="bookForm" class="row">
-                        <input id="bookName" placeholder="Book name (unique)" maxlength="50" required>
-                        <input id="bookTitle" placeholder="Title" maxlength="100" required>
-                        <input id="bookPrice" type="number" step="0.01" min="0" placeholder="Price" required>
-                        <input id="bookQty" type="number" min="0" value="1" placeholder="Quantity" required>
-                        <select id="bookAuthor" required></select>
-                        <button>Add Book</button>
-                    </form>
-                </div>
-                <div class="card">
-                    <h3>All Books</h3>
-                    <input id="bookSearch" placeholder="Search by name, title or author...">
-                    <table>
-                        <thead><tr><th>ID</th><th>Name</th><th>Title</th><th>Author</th><th>Price</th><th>Qty</th><th></th></tr></thead>
-                        <tbody id="bookRows"></tbody>
-                    </table>
+                    <div class="toolbar">
+                        <div class="search"><i class="bi bi-search"></i><input id="searchBooks" placeholder="Search by name, title or author..."></div>
+                        <span class="count" id="countBooks"></span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Book Name</th><th>Title</th><th>Author</th><th>Price</th><th>Stock</th><th class="right">Actions</th></tr></thead>
+                            <tbody id="bookRows"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <!-- AUTHORS -->
-            <section id="authors" class="panel hidden">
+            <section id="view-authors" class="view hidden">
                 <div class="card">
-                    <h3>Add Author</h3>
-                    <form id="authorForm" class="row">
-                        <input id="authorName" placeholder="Author name" maxlength="50" required>
-                        <button>Add Author</button>
-                    </form>
-                </div>
-                <div class="card">
-                    <h3>All Authors</h3>
-                    <table>
-                        <thead><tr><th>ID</th><th>Name</th><th></th></tr></thead>
-                        <tbody id="authorRows"></tbody>
-                    </table>
+                    <div class="toolbar">
+                        <div class="search"><i class="bi bi-search"></i><input id="searchAuthors" placeholder="Search authors..."></div>
+                        <span class="count" id="countAuthors"></span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Author Name</th><th class="right">Actions</th></tr></thead>
+                            <tbody id="authorRows"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
             <!-- USERS -->
-            <section id="users" class="panel hidden">
+            <section id="view-users" class="view hidden">
                 <div class="card">
-                    <h3>Add User</h3>
-                    <form id="userForm" class="row">
-                        <input id="userName" placeholder="Username" maxlength="50" required>
-                        <input id="userEmail" type="email" placeholder="Email" maxlength="50" required>
-                        <button>Add User</button>
-                    </form>
-                </div>
-                <div class="card">
-                    <h3>All Users</h3>
-                    <table>
-                        <thead><tr><th>ID</th><th>Username</th><th>Email</th><th></th></tr></thead>
-                        <tbody id="userRows"></tbody>
-                    </table>
+                    <div class="toolbar">
+                        <div class="search"><i class="bi bi-search"></i><input id="searchUsers" placeholder="Search by username or email..."></div>
+                        <span class="count" id="countUsers"></span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Username</th><th>Email</th><th class="right">Actions</th></tr></thead>
+                            <tbody id="userRows"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- BORROW -->
-            <section id="borrows" class="panel hidden">
+            <!-- BORROWS -->
+            <section id="view-borrows" class="view hidden">
                 <div class="card">
-                    <h3>Borrow a Book</h3>
-                    <form id="borrowForm" class="row">
-                        <select id="borrowUser" required></select>
-                        <select id="borrowBook" required></select>
-                        <input id="borrowDate" type="date" required>
-                        <button>Borrow</button>
-                    </form>
-                </div>
-                <div class="card">
-                    <h3>Borrow Records</h3>
-                    <table>
-                        <thead><tr><th>ID</th><th>User</th><th>Book</th><th>Borrowed</th><th>Returned</th><th></th></tr></thead>
-                        <tbody id="borrowRows"></tbody>
-                    </table>
+                    <div class="toolbar">
+                        <div class="search"><i class="bi bi-search"></i><input id="searchBorrows" placeholder="Search by member or book..."></div>
+                        <span class="count" id="countBorrows"></span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Member</th><th>Book</th><th>Borrowed</th><th>Returned</th><th>Status</th><th class="right">Actions</th></tr></thead>
+                            <tbody id="borrowRows"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
+            <!-- Returned Books -->
+            <section id="view-return" class="view hidden">
+                <div class="card">
+                    <div class="toolbar">
+                        <div class="search"><i class="bi bi-search"></i><input id="searchReturners" placeholder="Search R"> </div>
+                    </div>
+                </div>
+            </section>
         </main>
-    </div>   <!-- end .content -->
-</div>       <!-- end .layout -->
+    </div>
+</div>
+
+<!-- ===== ADD / EDIT MODAL ===== -->
+<div id="modal" class="modal hidden">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3 id="modalTitle"></h3>
+            <button type="button" id="modalClose" class="icon-btn"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <form id="modalForm">
+            <div id="modalFields" class="form-grid"></div>
+            <div class="modal-actions">
+                <button type="button" id="modalCancel" class="btn ghost">Cancel</button>
+                <button type="submit" id="modalSave" class="btn primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ===== CONFIRM DIALOG ===== -->
+<div id="confirmBox" class="modal hidden">
+    <div class="modal-box small center">
+        <div class="confirm-icon"><i class="bi bi-exclamation-triangle"></i></div>
+        <h3 id="confirmTitle"></h3>
+        <p id="confirmText" class="muted"></p>
+        <div class="modal-actions center">
+            <button type="button" id="confirmCancel" class="btn ghost">Cancel</button>
+            <button type="button" id="confirmOk" class="btn danger">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div id="toasts" class="toasts"></div>
 
 <script src="js/api.js"></script>
 <script src="js/app.js"></script>

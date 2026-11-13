@@ -67,7 +67,7 @@ public class BorrowServiceImpl implements BorrowService {
     // ---------------- RETURN BOOK ----------------
     @Override
     @Transactional
-    public Borrow returnBook(int borrowId) {
+    public Borrow returnBook(int borrowId, LocalDate date) {
 
         Borrow borrow = borrowRepository.findById(borrowId)
                 .orElseThrow(() ->
