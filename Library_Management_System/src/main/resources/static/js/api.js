@@ -1,5 +1,5 @@
-// If your update endpoints are PUT /api/users/update/{id}, keep "/update".
-// If they are PUT /api/users/{id}, change this to "".
+// Agar tumhare update endpoints PUT /api/users/update/{id} hain to "/update" rehne do.
+// Agar PUT /api/users/{id} hain to ise "" kar do.
 const UPDATE_PATH = "/update";
 
 async function readError(res, method) {
@@ -41,8 +41,15 @@ const Api = {
     books:   resource("/api/books"),
     authors: resource("/api/authors"),
     users:   resource("/api/users"),
+
     borrows: {
         ...resource("/api/borrows"),
-        giveBack: id => apiFetch(`/api/borrows/${id}/return`, { method: "PUT" }),
+        giveBack: (id, returnDate) =>
+            apiFetch(`/api/borrows/${id}/return`, { method: "PUT", body: JSON.stringify({ returnDate }) }),
+    },
+
+    settings: {
+        get:  ()  => apiFetch("/api/settings"),
+        save: (d) => apiFetch("/api/settings", { method: "PUT", body: JSON.stringify(d) }),
     },
 };

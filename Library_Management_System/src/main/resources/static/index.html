@@ -24,11 +24,34 @@
             <button class="nav-item" data-view="authors"><i class="bi bi-person-lines-fill"></i>Authors</button>
             <button class="nav-item" data-view="users"><i class="bi bi-people"></i>Users</button>
             <button class="nav-item" data-view="borrows"><i class="bi bi-arrow-left-right"></i>Borrow / Return</button>
-            <button class="nav-item" data-view="borrows"><i class="bi bi-arrow-left-right"></i>Returned Books</button>
-
+            <button class="nav-item" data-view="returns"><i class="bi bi-journal-check"></i>Returned Books</button>
+            <button class="nav-item" data-view="settings"><i class="bi bi-gear"></i>Settings</button>
         </nav>
         <div class="sidebar-footer">Library Management System<br>Spring Boot + MySQL</div>
     </aside>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view hidden">
+        <div class="card settings-card">
+            <div class="card-head"><h3>Library Rules</h3></div>
+            <form id="settingsForm" class="settings-form">
+                <label class="field">
+                    <span>Default loan period (days)</span>
+                    <input id="setLoanDays" type="number" min="1" max="365" step="1" required>
+                    <small>Har naye issue hone wali book itne din ke liye milegi.</small>
+                </label>
+                <label class="field">
+                    <span>Fine per late day (₹)</span>
+                    <input id="setFine" type="number" min="0" step="0.5" required>
+                    <small>Due date ke baad har din ka jurmana.</small>
+                </label>
+                <div class="note"><i class="bi bi-info-circle"></i>
+                    Din badalne ka asar sirf naye issue hone wali books par hoga. Pehle se issue books apni purani due date rakhengi.
+                </div>
+                <div><button type="submit" id="settingsSave" class="btn primary"><i class="bi bi-check-lg"></i>Save Settings</button></div>
+            </form>
+        </div>
+    </section>
 
     <!-- ===== MAIN ===== -->
     <div class="main">
@@ -113,27 +136,43 @@
                 </div>
             </section>
 
-            <!-- BORROWS -->
+            <!-- BORROWS (currently issued) -->
             <section id="view-borrows" class="view hidden">
                 <div class="card">
                     <div class="toolbar">
                         <div class="search"><i class="bi bi-search"></i><input id="searchBorrows" placeholder="Search by member or book..."></div>
                         <span class="count" id="countBorrows"></span>
                     </div>
+                    <div class="chips" id="borrowChips">
+                        <button class="chip active" data-filter="all">All Issued</button>
+                        <button class="chip" data-filter="overdue">Overdue</button>
+                    </div>
                     <div class="table-wrap">
                         <table>
-                            <thead><tr><th>ID</th><th>Member</th><th>Book</th><th>Borrowed</th><th>Returned</th><th>Status</th><th class="right">Actions</th></tr></thead>
+                            <thead><tr><th>ID</th><th>Member</th><th>Book</th><th>Borrowed</th><th>Due Date</th><th>Status</th><th class="right">Action</th></tr></thead>
                             <tbody id="borrowRows"></tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- Returned Books -->
-            <section id="view-return" class="view hidden">
+            <!-- RETURNED BOOKS (history) -->
+            <section id="view-returns" class="view hidden">
                 <div class="card">
                     <div class="toolbar">
-                        <div class="search"><i class="bi bi-search"></i><input id="searchReturners" placeholder="Search R"> </div>
+                        <div class="search"><i class="bi bi-search"></i><input id="searchReturns" placeholder="Search by member or book..."></div>
+                        <span class="count" id="countReturns"></span>
+                    </div>
+                    <div class="chips" id="returnChips">
+                        <button class="chip active" data-filter="all">All</button>
+                        <button class="chip" data-filter="ontime">On time</button>
+                        <button class="chip" data-filter="late">Late</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>ID</th><th>Member</th><th>Book</th><th>Borrowed</th><th>Due Date</th><th>Returned On</th><th>Result</th><th>Fine</th></tr></thead>
+                            <tbody id="returnRows"></tbody>
+                        </table>
                     </div>
                 </div>
             </section>
