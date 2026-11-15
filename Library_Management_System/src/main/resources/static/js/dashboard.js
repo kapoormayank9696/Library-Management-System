@@ -1,4 +1,3 @@
-
 let books = [];
 const rows = document.getElementById("bookRows");
 
